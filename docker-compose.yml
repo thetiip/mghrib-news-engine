@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: maghrib-news-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./news.db:/app/news.db
+    environment:
+      - DATABASE_URL=sqlite:///./news.db
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    command: python api.py
+    restart: unless-stopped
+
+  scraper:
+    build: .
+    container_name: maghrib-news-scraper
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./news.db:/app/news.db
+    environment:
+      - DATABASE_URL=sqlite:///./news.db
+    command: python scheduler.py
+    restart: unless-stopped
+    depends_on:
+      - api
