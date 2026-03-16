@@ -45,6 +45,9 @@ ENV/
 *.log
 logs/
 
+# Data exports
+data/articles.json
+
 # Cache
 .cache/
 *.cache

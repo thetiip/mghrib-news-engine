@@ -31,7 +31,7 @@ News in Morocco is fragmented across multiple sources (Hespress, Médias24, etc.
 
 ### Modular Scraping
 - Independent spider architecture
-- Current support: **Hespress**, **Médias24**
+- Current support: **Hespress**, **Le360**, **Médias24**, **Elbotola**, **TelQuel**, **Yabiladi**
 - RSS feeds and intelligent HTML parsing
 - Easily extensible for new sources
 
@@ -53,8 +53,8 @@ News in Morocco is fragmented across multiple sources (Hespress, Médias24, etc.
 - CORS support for frontend integration
 
 ### Automation
-- Periodic scraping scheduler
-- GitHub Actions for cloud execution
+- Periodic scraping scheduler (APScheduler)
+- Docker Compose deployment (API + scraper)
 - Automatic JSON export
 
 ---
@@ -175,7 +175,11 @@ search = requests.get("http://localhost:8000/search?q=économie")
   "recent_articles_24h": 87,
   "by_source": {
     "Hespress": 456,
-    "Médias24": 389
+    "Le360": 321,
+    "Médias24": 389,
+    "Elbotola": 245,
+    "TelQuel": 198,
+    "Yabiladi": 267
   },
   "by_sentiment": {
     "Positif": 523,
@@ -194,7 +198,11 @@ maghrib-news-aggregator/
 ├── spiders/              # Modular scrapers
 │   ├── base.py          # Abstract base class
 │   ├── hespress.py      # Hespress spider
-│   └── medias24.py      # Médias24 spider
+│   ├── le360.py         # Le360 spider
+│   ├── medias24.py      # Médias24 spider
+│   ├── elbotola.py      # Elbotola spider (sports)
+│   ├── telquel.py       # TelQuel spider
+│   └── yabiladi.py      # Yabiladi spider
 ├── api.py               # FastAPI application
 ├── main.py              # Main scraping script
 ├── scheduler.py         # Periodic scraping automation
@@ -206,10 +214,7 @@ maghrib-news-aggregator/
 ├── schemas.py           # Pydantic schemas
 ├── config.py            # Configuration
 ├── export.py            # JSON export
-├── requirements.txt     # Dependencies
-└── .github/
-    └── workflows/
-        └── scrape.yml   # GitHub Actions
+└── requirements.txt     # Dependencies
 ```
 
 ---
@@ -225,9 +230,12 @@ maghrib-news-aggregator/
 - [x] REST API
 - [x] SQLite database
 
-### Phase 2: Improvements (In Progress)
-- [ ] Add ElBotola (sports)
-- [ ] Add TelQuel, La Vie Éco
+### Phase 2: Improvements (Completed)
+- [x] Add Le360 (general news)
+- [x] Add Elbotola (sports)
+- [x] Add TelQuel (politics, society, culture)
+- [x] Add Yabiladi (general news, diaspora)
+- [ ] Add La Vie Éco (economy)
 - [ ] Support for Arabic-only sites (Al-Massae, etc.)
 - [ ] Improve sentiment analysis with Darija fine-tuning
 - [ ] Redis caching system
@@ -285,7 +293,11 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## Acknowledgments
 
 - [Hespress](https://hespress.com) - News source
+- [Le360](https://fr.le360.ma) - News source
 - [Médias24](https://medias24.com) - News source
+- [Elbotola](https://www.elbotola.com) - Sports news source
+- [TelQuel](https://telquel.ma) - News source
+- [Yabiladi](https://www.yabiladi.com) - News source
 - [CAMeL Lab](https://github.com/CAMeL-Lab) - Arabic NLP models
 - [FastAPI](https://fastapi.tiangolo.com/) - API framework
 - [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) - HTML parsing

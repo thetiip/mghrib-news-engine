@@ -276,20 +276,19 @@ docker run -p 8000:8000 -v $(pwd)/data:/app/data maghrib-news python api.py
 docker run -v $(pwd)/data:/app/data maghrib-news python main.py
 ```
 
-## 5. Automatisation avec GitHub Actions
+## 5. Automatisation avec le Scheduler
 
-Les GitHub Actions sont déjà configurées dans `.github/workflows/scrape.yml`.
+Le scheduler APScheduler peut être lancé en tant que service pour scraper automatiquement :
 
-Pour activer :
+```bash
+# Lancer le scheduler (scraping périodique, par défaut toutes les heures)
+python scheduler.py
 
-1. Push votre code sur GitHub
-2. Les actions se déclencheront automatiquement toutes les heures
-3. Les données seront committées dans `data/articles.json`
+# Ou avec Docker Compose (API + scraper)
+docker-compose up -d
+```
 
-Pour déclencher manuellement :
-- Allez dans l'onglet "Actions" de votre repo
-- Sélectionnez "Scrape News Daily"
-- Cliquez sur "Run workflow"
+Le scheduler exécutera le scraping de toutes les sources (Hespress, Le360, Médias24, Elbotola, TelQuel, Yabiladi) selon l'intervalle configuré dans `.env` (`SCRAPING_INTERVAL=3600`).
 
 ## 6. Intégrations Futures
 

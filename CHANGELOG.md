@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Automation
 - **Scheduler**: Periodic scraping with configurable intervals
-- **GitHub Actions**: Automated scraping workflow
+- **Scheduler**: Periodic scraping via APScheduler
 - **Export Functionality**: JSON export for data portability
 
 #### Developer Experience
@@ -69,16 +69,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - API documentation (auto-generated)
 
 ### Infrastructure
-- GitHub Actions workflow for automated scraping
 - Docker and docker-compose configuration
 - .gitignore for Python projects
 - Requirements.txt with pinned versions
 
+## [1.1.0] - 2026-03-16
+
+### Added
+- **New Source Scrapers**:
+  - Le360 spider activated (was implemented but not registered)
+  - Elbotola spider for Moroccan/African sports news
+  - TelQuel spider for politics, society, and culture
+  - Yabiladi spider for general and diaspora news
+- **6 total news sources** now supported (up from 2 active)
+- Unit tests for all new spider initializations
+
+### Removed
+- **GitHub Actions scraping workflow** (`scrape.yml`): data files should not be committed to git. Use `docker-compose up -d` or `python scheduler.py` for production scraping.
+
+### Changed
+- Updated documentation to reflect new sources and removal of GitHub Actions
+- Added `data/articles.json` to `.gitignore`
+
 ## [Unreleased]
 
 ### Planned Features
-- ElBotola spider (sports news)
-- TelQuel and La Vie Éco scrapers
+- La Vie Éco scraper (economy)
 - Arabic-only sources (Al-Massae, etc.)
 - Telegram bot integration
 - WhatsApp bot integration
@@ -95,4 +111,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **1.1.0** - Added Le360, Elbotola, TelQuel, Yabiladi sources; removed GitHub Actions pipeline
 - **1.0.0** - Initial release with core functionality

@@ -3,7 +3,10 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Article
-from spiders import HespressSpider, Le360Spider, Medias24Spider
+from spiders import (
+    HespressSpider, Le360Spider, Medias24Spider,
+    ElbotolaSpider, TelQuelSpider, YabiladiSpider,
+)
 from sentiment import SimpleSentimentAnalyzer
 from cleaner import ContentCleaner
 
@@ -57,6 +60,27 @@ def test_medias24_spider_initialization():
     """Test Médias24 spider initialization."""
     spider = Medias24Spider()
     assert spider.source_name == "Médias24"
+
+
+def test_elbotola_spider_initialization():
+    """Test Elbotola spider initialization."""
+    spider = ElbotolaSpider()
+    assert spider.source_name == "Elbotola"
+    assert spider.rss_url is not None
+
+
+def test_telquel_spider_initialization():
+    """Test TelQuel spider initialization."""
+    spider = TelQuelSpider()
+    assert spider.source_name == "TelQuel"
+    assert spider.rss_url is not None
+
+
+def test_yabiladi_spider_initialization():
+    """Test Yabiladi spider initialization."""
+    spider = YabiladiSpider()
+    assert spider.source_name == "Yabiladi"
+    assert spider.rss_url is not None
 
 
 # Test Sentiment Analysis

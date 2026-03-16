@@ -2,7 +2,10 @@
 from typing import List
 from loguru import logger
 from sqlalchemy.orm import Session
-from spiders import HespressSpider, Medias24Spider
+from spiders import (
+    HespressSpider, Le360Spider, Medias24Spider,
+    ElbotolaSpider, TelQuelSpider, YabiladiSpider,
+)
 from models import Article
 from sentiment import SentimentAnalyzer, SimpleSentimentAnalyzer
 from cleaner import ContentCleaner
@@ -16,7 +19,11 @@ class ScrapingService:
         """Initialize scraping service."""
         self.spiders = [
             HespressSpider(),
-            Medias24Spider()
+            Le360Spider(),
+            Medias24Spider(),
+            ElbotolaSpider(),
+            TelQuelSpider(),
+            YabiladiSpider(),
         ]
         self.use_sentiment = use_sentiment
         
